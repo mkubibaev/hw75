@@ -11,7 +11,22 @@ app.post('/encode', (req, res) => {
         const password = req.body.password;
         const message = req.body.message;
         const encoded = Caesar.Cipher(password).crypt(message);
+
         res.send({encoded});
+    } else {
+        res.send({message: 'password is required!'});
+    }
+});
+
+app.post('/decode', (req, res) => {
+    if (req.body.password) {
+        const password = req.body.password;
+        const message = req.body.message;
+        const decoded = Caesar.Decipher(password).crypt(message);
+
+        res.send({decoded});
+    } else {
+        res.send({message: 'password is required!'});
     }
 });
 
