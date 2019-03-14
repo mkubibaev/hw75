@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {encode, valueChangeHandler} from "./store/actions";
+import {decode, encode, reset, valueChangeHandler} from "./store/actions";
 import {connect} from "react-redux";
 
 class App extends Component {
@@ -23,13 +23,22 @@ class App extends Component {
                 <button
                     type="button"
                     onClick={() => {this.props.onEncode(this.props.encMessage, this.props.password)}}
+                    disabled={!!this.props.decMessage}
                 >
                     Encode
                 </button>
                 <button
                     type="button"
+                    onClick={() => {this.props.onDecode(this.props.decMessage, this.props.password)}}
+                    disabled={!!this.props.encMessage}
                 >
                     Decode
+                </button>
+                <button
+                    type="button"
+                    onClick={this.props.onReset}
+                >
+                    Reset
                 </button>
                 <textarea
                     placeholder="Message for decode"
@@ -50,7 +59,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onValueChange: event => dispatch(valueChangeHandler(event.target.value, event.target.name)),
-    onEncode: (message, password) => dispatch(encode(message, password))
+    onEncode: (message, password) => dispatch(encode(message, password)),
+    onDecode: (message, password) => dispatch(decode(message, password)),
+    onReset: () => dispatch(reset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
