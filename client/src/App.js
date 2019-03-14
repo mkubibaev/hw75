@@ -1,21 +1,56 @@
 import React, {Component} from 'react';
+import {encode, valueChangeHandler} from "./store/actions";
+import {connect} from "react-redux";
 
 class App extends Component {
-    state = {
-
-    };
 
     render() {
         return (
             <div className="container">
-                <textarea placeholder="message for encode"/>
-                <input type="text" placeholder="password"/>
-                <button type="button">Encode</button>
-                <button type="decode">Decode</button>
-                <textarea placeholder="message for decode"/>
+                <textarea
+                    placeholder="Message for encode"
+                    name="encMessage"
+                    value={this.props.encMessage}
+                    onChange={event => this.props.onValueChange(event)}
+                />
+                <input
+                    type="text"
+                    placeholder="password"
+                    name="password"
+                    value={this.props.password}
+                    onChange={event => this.props.onValueChange(event)}
+                />
+                <button
+                    type="button"
+                    onClick={() => {}}
+                >
+                    Encode
+                </button>
+                <button
+                    type="button"
+                >
+                    Decode
+                </button>
+                <textarea
+                    placeholder="Message for decode"
+                    name="decMessage"
+                    value={this.props.decMessage}
+                    onChange={event => this.props.onValueChange(event)}
+                />
             </div>
         );
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    encMessage: state.encoded,
+    decMessage: state.decoded,
+    password: state.password,
+});
+
+const mapDispatchToProps = dispatch => ({
+    onValueChange: event => dispatch(valueChangeHandler(event.target.value, event.target.name)),
+    onEncode: encMessage => dispatch(encode(encMessage))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
