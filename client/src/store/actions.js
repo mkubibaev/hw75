@@ -7,8 +7,8 @@ export const PASSWORD = 'PASSWORD';
 export const ENCODE_SUCCESS = 'ENCODE_SUCCESS';
 export const DECODE_SUCCESS = 'DECODE_SUCCESS';
 
-export const encodeSuccess = encoded => ({type: ENCODE_SUCCESS, encoded});
-export const decodeSuccess = decoded => ({type: DECODE_SUCCESS, decoded});
+export const encodeSuccess = encodedData => ({type: ENCODE_SUCCESS, encodedData});
+export const decodeSuccess = decodedData => ({type: DECODE_SUCCESS, decodedData});
 
 
 export const valueChangeHandler = (value, inputName) => {
@@ -21,9 +21,9 @@ export const valueChangeHandler = (value, inputName) => {
     }
 };
 
-export const encode = encMessage => {
+export const encode = (message, password) => {
     return dispatch => {
-        axios.post('/encode', encMessage).then(
+        axios.post('/encode', {message, password}).then(
             response => dispatch(encodeSuccess(response.data))
         )
     }

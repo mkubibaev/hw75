@@ -22,7 +22,7 @@ class App extends Component {
                 />
                 <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => {this.props.onEncode(this.props.encMessage, this.props.password)}}
                 >
                     Encode
                 </button>
@@ -50,7 +50,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onValueChange: event => dispatch(valueChangeHandler(event.target.value, event.target.name)),
-    onEncode: encMessage => dispatch(encode(encMessage))
+    onEncode: (message, password) => dispatch(encode(message, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

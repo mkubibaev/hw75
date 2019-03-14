@@ -1,10 +1,12 @@
 const express = require('express');
 const Caesar = require('caesar-salad').Caesar;
+const cors = require('cors');
 
 const app = express();
 const port = 8000;
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/encode', (req, res) => {
     if (req.body.password) {

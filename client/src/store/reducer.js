@@ -1,4 +1,4 @@
-import {DECODED_MESSAGE, ENCODED_MESSAGE, PASSWORD} from "./actions";
+import {DECODED_MESSAGE, ENCODE_SUCCESS, ENCODED_MESSAGE, PASSWORD} from "./actions";
 
 const initialState = {
     encoded: '',
@@ -16,6 +16,9 @@ const reducer = (state = initialState, action) => {
 
         case PASSWORD:
             return { ...state, password: action.value};
+
+        case ENCODE_SUCCESS:
+            return {...state, decoded: action.encodedData.encoded};
 
         default:
             return state;
